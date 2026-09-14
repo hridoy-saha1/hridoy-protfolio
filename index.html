@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hridoy Saha — Full-Stack Developer</title>
+<meta name="description" content="Hridoy Saha, a Computer Science and Engineering graduate and aspiring software engineer building meaningful, scalable web applications.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Tailwind (utility layer only — visual system lives in css/style.css) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: '#070B10',
+          bg2: '#0B1118',
+          surface: '#101820',
+          elevated: '#151F29',
+          text: '#EAF7FA',
+          muted: '#91A7B2',
+          faint: '#5B707B',
+          accent: '#22D3EE',
+          accent2: '#0891B2',
+          signal: '#60A5FA',
+        },
+        fontFamily: {
+          display: ['Manrope', 'sans-serif'],
+          sans: ['Inter', 'sans-serif'],
+          mono: ['JetBrains Mono', 'monospace'],
+        },
+      }
+    }
+  }
+</script>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Ambient engineering-mesh canvas: a quiet grid of connected nodes, never celestial -->
+<canvas id="meshCanvas" aria-hidden="true"></canvas>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- Preloader: only ever shown while JS is running, so no visitor gets trapped -->
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <span class="preloader-word">Compiling build</span>
+    <span class="preloader-count" id="preloaderCount">0</span>
+    <span class="preloader-tag">status: ready in <span id="preloaderTime">—</span>ms</span>
+  </div>
+</div>
+
+<!-- Skip link -->
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ================= NAVIGATION ================= -->
+<header class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo" aria-label="Hridoy Saha, home">
+      <span class="nav-mark">HS</span>
+      <span class="nav-fullname">Hridoy Saha</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#about" class="nav-link" data-nav-link>About</a>
+      <a href="#skills" class="nav-link" data-nav-link>Skills</a>
+      <a href="#projects" class="nav-link" data-nav-link>Projects</a>
+      <a href="#education" class="nav-link" data-nav-link>Education</a>
+      <a href="#contact" class="nav-link" data-nav-link>Contact</a>
+      <span class="nav-indicator" id="navIndicator" aria-hidden="true"></span>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="assets/Hridoy-Saha-Resume.pdf" class="btn btn-ghost" download>Resume</a>
+      <a href="#contact" class="btn btn-solid magnetic" data-magnetic>
+        <span>Let's talk</span>
+      </a>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile fullscreen menu -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <nav aria-label="Mobile primary">
+    <a href="#about" class="mobile-link" data-nav-link>About</a>
+    <a href="#skills" class="mobile-link" data-nav-link>Skills</a>
+    <a href="#projects" class="mobile-link" data-nav-link>Projects</a>
+    <a href="#education" class="mobile-link" data-nav-link>Education</a>
+    <a href="#contact" class="mobile-link" data-nav-link>Contact</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <a href="assets/Hridoy-Saha-Resume.pdf" class="btn btn-ghost" download>Resume</a>
+    <div class="mobile-socials">
+      <a href="https://github.com/hridoy-saha1/ target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/hridoy--saha/ target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:hredoysaha123@gmail.com">Email</a>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-mesh" aria-hidden="true">
+    <span class="mesh-blob mesh-amber"></span>
+    <span class="mesh-blob mesh-ember"></span>
+    <span class="mesh-blob mesh-steel"></span>
+  </div>
+
+  <div class="hero-grid" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+
+    <!-- LEFT CONTENT -->
+    <div class="hero-copy">
+
+      <p class="badge reveal-item" data-reveal="badge">
+        <span class="badge-dot"></span>
+        Aspiring Software Engineer · Full-Stack Developer
+      </p>
+
+ <h1 class="hero-heading">
+
+  <span class="reveal-line hero-name" data-reveal-line>
+    Hridoy <em class="text-gradient saha ">Saha</em>
+  </span>
+
+  <span class="reveal-line" data-reveal-line>
+    Full-Stack Developer
+  </span>
+
+</h1>
+
+      <p class="hero-desc reveal-item" data-reveal="desc">
+        I am a Computer Science and Engineering graduate passionate about
+        problem-solving, continuous learning, and building meaningful software
+        solutions with modern full-stack technologies.
+      </p>
+
+      <div class="hero-actions reveal-item" data-reveal="actions">
+
+        <a href="#projects" class="btn btn-solid magnetic" data-magnetic>
+          <span>View my projects</span>
+
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path
+              d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+
+        <a
+          href="assets/Hridoy-Saha-Resume.pdf"
+          class="btn btn-ghost magnetic"
+          data-magnetic
+          download
+        >
+          <span>Download resume</span>
+        </a>
+
+      </div>
+
+      <div class="hero-socials reveal-item" data-reveal="socials">
+
+        <a
+          href="https://github.com/hridoy-saha1/
+          target="_blank"
+          rel="noopener"
+          aria-label="GitHub profile"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.5 0 12.3c0 5.44 3.44 10.05 8.21 11.68.6.12.82-.27.82-.6 0-.3-.01-1.08-.02-2.12-3.34.75-4.04-1.66-4.04-1.66-.55-1.42-1.34-1.8-1.34-1.8-1.1-.77.08-.76.08-.76 1.21.09 1.85 1.27 1.85 1.27 1.08 1.9 2.83 1.35 3.52 1.03.11-.8.42-1.35.76-1.66-2.67-.31-5.47-1.37-5.47-6.1 0-1.35.47-2.45 1.24-3.31-.12-.31-.54-1.57.12-3.28 0 0 1.01-.33 3.3 1.27.96-.27 1.98-.41 3-.42 1.02.01 2.04.15 3 .42 2.29-1.6 3.3-1.27 3.3-1.27.66 1.71.24 2.97.12 3.28.77.86 1.24 1.96 1.24 3.31 0 4.74-2.81 5.78-5.49 6.09.43.38.81 1.13.81 2.28 0 1.65-.02 2.98-.02 3.38 0 .33.22.72.83.6C20.57 22.34 24 17.74 24 12.3 24 5.5 18.63 0 12 0Z"/>
+          </svg>
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/hridoy--saha/
+          target="_blank"
+          rel="noopener"
+          aria-label="LinkedIn profile"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.68H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.11 20.45H3.56V9h3.55v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45C23.2 24 24 23.22 24 22.25V1.75C24 .78 23.2 0 22.22 0Z"/>
+          </svg>
+        </a>
+
+        <a
+          href="mailto:hredoysaha123@gmail.com"
+          aria-label="Send email"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M2 5.5A2.5 2.5 0 0 1 4.5 3h15A2.5 2.5 0 0 1 22 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 18.5v-13Z"
+              stroke="currentColor"
+              stroke-width="1.5"
+            />
+            <path
+              d="m3.5 6 8.5 6.5L20.5 6"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </a>
+
+      </div>
+    </div>
+
+
+    <!-- RIGHT CONTENT -->
+    <div class="hero-visual reveal-item" data-reveal="card">
+
+      <div class="portrait-frame" id="portraitFrame">
+
+        <span class="portrait-ring" aria-hidden="true"></span>
+
+        <span
+          class="portrait-ring portrait-ring--slow"
+          aria-hidden="true"
+        ></span>
+
+        <div class="portrait-photo" id="portraitPhoto">
+
+          <img
+            src="images/profile.jpg"
+            alt="Portrait of Hridoy Saha"
+            onerror="this.style.display='none'; this.parentElement.classList.add('img-fallback')"
+          >
+
+          <span class="portrait-initials">HS</span>
+
+        </div>
+
+        <span class="portrait-badge">
+          <span class="status-pulse"></span>
+          Available for work
+        </span>
+
+      </div>
+
+
+      <!-- Developer information -->
+      <div class="portrait-meta">
+
+        <div class="meta-row">
+          <span class="meta-key">Name</span>
+          <span class="meta-val">Hridoy Saha</span>
+        </div>
+
+        <div class="meta-row">
+          <span class="meta-key">role</span>
+          <span class="meta-val">Full-Stack Developer</span>
+        </div>
+
+       
+
+        <div class="meta-row">
+          <span class="meta-key">based in</span>
+          <span class="meta-val">Dhaka, Bangladesh</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span>Scroll</span>
+    <span class="scroll-line"></span>
+  </div>
+
+</section>
+
+  <!-- ================= ABOUT ================= -->
+<!-- ================= ABOUT ================= -->
+<section class="about" id="about">
+  <div class="section-inner">
+
+    <p class="section-kicker about reveal-up">About Me</p>
+
+    <h2 class="about-heading reveal-up">
+      The developer behind<br>
+      <span class="text-gradient">the solutions.</span>
+    </h2>
+
+    <div class="about-profile">
+
+      <!-- LEFT — PROFILE IMAGE -->
+      <div class="about-photo-wrap reveal-up">
+        <div class="about-photo-card">
+
+          <div class="about-photo">
+            <img
+              src="images/profile.jpg"
+              alt="Hridoy Saha"
+            >
+          </div>
+
+          <div class="about-photo-footer">
+            <span>CSE UNDERGRAD</span>
+            <span>•</span>
+            <span>AIUB</span>
+            <span>•</span>
+            <span>EST. 2026</span>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- RIGHT — CONTENT -->
+      <div class="about-content reveal-up">
+
+        <p class="about-lede">
+          I am a Computer Science and Engineering undergraduate passionate
+          about problem-solving, full-stack development, and building
+          meaningful software solutions. I enjoy turning real-world
+          requirements into clean, practical, and user-focused applications.
+        </p>
+
+        <p class="about-description">
+          My approach focuses on understanding the problem first, designing
+          reliable solutions, and writing code that is maintainable and easy
+          to evolve. From frontend interfaces and REST APIs to databases,
+          authentication, and business logic, I enjoy working across the
+          complete development process.
+        </p>
+
+
+        <!-- EDUCATION -->
+        <div class="about-education">
+
+          <div class="about-education-label">
+            <span>Education</span>
+            <i></i>
+          </div>
+
+          <div class="about-education-item">
+
+            <div class="about-education-year">
+              2026
+            </div>
+
+            <div class="about-education-info">
+              <h3>
+                American International University-Bangladesh
+              </h3>
+
+              <p>
+                B.Sc. in Computer Science and Engineering
+              </p>
+
+              <span>
+                Expected Graduation · October 2026
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- ================= PROJECTS ================= -->
+  <section class="projects" id="projects">
+    <div class="section-inner">
+
+ <p class="section-kicker section-heading reveal-up">Projects</p>
+
+
+
+<p class="projects-intro reveal-up">
+  Explore a selection of projects where I applied full-stack development,
+  database design, authentication, API integration, and real-world business
+  logic to build practical, scalable, and user-focused software solutions.
+</p>
+
+      <div class="top-projects-grid">
+
+        <!-- 01 — NexCart -->
+        <article class="top-project-card top-project-card--featured reveal-up" data-tilt>
+
+          <div class="top-project-image">
+            <img
+              src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fnexcart-bd.vercel.app%2F?w=1400"
+              alt="Live preview of NexCart multi-vendor e-commerce platform"
+              loading="lazy"
+            >
+
+            <div class="top-project-image-overlay"></div>
+
+            <span class="top-project-number">01</span>
+
+            <span class="top-project-status">
+              <span></span> Live
+            </span>
+
+            <a
+              href="https://nexcart-bd.vercel.app"
+              target="_blank"
+              rel="noopener"
+              class="top-project-view"
+            >
+              View live
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                <path d="M3.5 12.5 12.5 3.5M12.5 3.5H5.5M12.5 3.5v7"
+                  stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="top-project-content">
+
+            <div class="top-project-meta">
+              <span>Featured Project</span>
+              <span>Full-Stack</span>
+            </div>
+
+            <h3>Multi-Vendor E-Commerce Platform</h3>
+
+            <p>
+              A complete e-commerce ecosystem connecting Customers, Sellers,
+              Riders, and Administrators through one unified platform.
+            </p>
+
+            <div class="top-project-highlights">
+              <span>JWT + RBAC</span>
+              <span>SSLCommerz</span>
+              <span>Real-time Orders</span>
+              <span>Dashboards</span>
+            </div>
+
+            <div class="top-project-tech">
+              <span>Next.js</span>
+              <span>NestJS</span>
+              <span>TypeScript</span>
+              <span>PostgreSQL</span>
+              <span>Supabase</span>
+            </div>
+
+            <div class="top-project-actions">
+              <a
+                href="https://nexcart-bd.vercel.app"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-solid magnetic"
+                data-magnetic
+              >
+                Live Demo
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                  <path d="M3.5 12.5 12.5 3.5M12.5 3.5H5.5M12.5 3.5v7"
+                    stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+
+              <a
+                href="https://github.com/hridoy-saha1/NexCart-Backend"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-ghost magnetic"
+                data-magnetic
+              >
+                GitHub
+              </a>
+            </div>
+
+          </div>
+        </article>
+
+
+        <!-- 02 — Book Trading Club -->
+        <article class="top-project-card reveal-up" data-tilt>
+
+          <div class="top-project-image">
+            <img
+              src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fbook-trading-club-delta.vercel.app%2F?w=1400"
+              alt="Live preview of Book Trading Club"
+              loading="lazy"
+            >
+
+            <div class="top-project-image-overlay"></div>
+
+            <span class="top-project-number">02</span>
+
+            <span class="top-project-status">
+              <span></span> Live
+            </span>
+
+            <a
+              href="https://book-trading-club-delta.vercel.app/"
+              target="_blank"
+              rel="noopener"
+              class="top-project-view"
+            >
+              View live
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                <path d="M3.5 12.5 12.5 3.5M12.5 3.5H5.5M12.5 3.5v7"
+                  stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="top-project-content">
+
+            <div class="top-project-meta">
+              <span>Team Project</span>
+              <span>Web Application</span>
+            </div>
+
+            <h3>Book Trading Club</h3>
+
+            <p>
+              A community platform for buying, selling, and exchanging books
+              with authentication, search, trade requests, chat, and an AI assistant.
+            </p>
+
+            <div class="top-project-highlights">
+              <span>AI Assistant</span>
+              <span>Book Trading</span>
+              <span>Real-time Chat</span>
+            </div>
+
+            <div class="top-project-tech">
+              <span>React.js</span>
+              <span>TypeScript</span>
+              <span>MongoDB</span>
+            </div>
+
+            <div class="top-project-actions">
+              <a
+                href="https://book-trading-club-delta.vercel.app/"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-solid magnetic"
+                data-magnetic
+              >
+                Live Demo
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                  <path d="M3.5 12.5 12.5 3.5M12.5 3.5H5.5M12.5 3.5v7"
+                    stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+
+              <a
+                href="https://github.com/Souad5/Book-Trading-Club"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-ghost magnetic"
+                data-magnetic
+              >
+                GitHub
+              </a>
+            </div>
+
+          </div>
+        </article>
+
+
+        <!-- 03 — Super Shop -->
+        <article class="top-project-card reveal-up" data-tilt>
+
+          <div class="top-project-image">
+            <img
+              src="https://opengraph.githubassets.com/1/hridoy-saha1/Super-Shop-Management-System"
+              alt="Super Shop Management System GitHub project preview"
+              loading="lazy"
+            >
+
+            <div class="top-project-image-overlay"></div>
+
+            <span class="top-project-number">03</span>
+
+            <span class="top-project-status top-project-status--repo">
+              <span></span> GitHub
+            </span>
+
+            <a
+              href="https://github.com/hridoy-saha1/Super-Shop-Management-System"
+              target="_blank"
+              rel="noopener"
+              class="top-project-view"
+            >
+              View repository
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                <path d="M3.5 12.5 12.5 3.5M12.5 3.5H5.5M12.5 3.5v7"
+                  stroke="currentColor" stroke-width="1.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="top-project-content">
+
+            <div class="top-project-meta">
+              <span>Desktop Application</span>
+              <span>Business System</span>
+            </div>
+
+            <h3>Super Shop Management System</h3>
+
+            <p>
+              A desktop retail management system designed to streamline product
+              management, sales processing, payments, users, and business operations.
+            </p>
+
+            <div class="top-project-highlights">
+              <span>Admin + Salesman</span>
+              <span>RBAC</span>
+              <span>Sales Management</span>
+              <span>Dashboard</span>
+            </div>
+
+            <div class="top-project-tech">
+              <span>C#</span>
+              <span>SQL Server</span>
+              <span>SSMS</span>
+            </div>
+
+            <div class="top-project-actions">
+              <a
+                href="https://github.com/hridoy-saha1/Super-Shop-Management-System"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-solid magnetic"
+                data-magnetic
+              >
+                GitHub Repository
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                  <path d="M3.5 12.5 12.5 3.5M12.5 3.5H5.5M12.5 3.5v7"
+                    stroke="currentColor" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* ================= COMPACT PROJECT CARDS ================= */
+
+.top-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.top-project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(34,211,238,.035), rgba(255,255,255,.012)),
+    var(--surface);
+  box-shadow: 0 16px 45px rgba(0,0,0,.18);
+  transition: .35s ease;
+}
+
+.top-project-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(34,211,238,.30);
+  box-shadow: 0 22px 55px rgba(0,0,0,.28);
+}
+
+/* Project image */
+.top-project-image {
+  position: relative;
+  height: 175px;
+  min-height: 175px;
+  overflow: hidden;
+  background: #0b1014;
+}
+
+.top-project-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform .6s ease;
+}
+
+.top-project-card:hover .top-project-image img {
+  transform: scale(1.04);
+}
+
+/* Image overlay */
+.top-project-image-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(5,8,10,.08),
+    rgba(5,8,10,.65)
+  );
+  pointer-events: none;
+}
+
+/* Number */
+.top-project-number {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+
+  width: 32px;
+  height: 32px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 9px;
+
+  background: rgba(8,12,15,.70);
+  backdrop-filter: blur(10px);
+
+  color: #fff;
+  font: 600 .65rem/1 var(--font-mono);
+}
+
+/* Status */
+.top-project-status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(34,211,238,.24);
+  border-radius: 999px;
+
+  background: rgba(5,12,15,.70);
+  backdrop-filter: blur(10px);
+
+  color: #d7fbff;
+  font: 500 .62rem/1 var(--font-mono);
+}
+
+.top-project-status > span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 10px rgba(34,211,238,.8);
+}
+
+/* View link */
+.top-project-view {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 999px;
+
+  background: rgba(5,8,10,.72);
+  backdrop-filter: blur(10px);
+
+  color: #fff;
+  font-size: .65rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  opacity: .75;
+  transform: translateY(4px);
+  transition: .25s ease;
+}
+
+.top-project-card:hover .top-project-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Content */
+.top-project-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 18px;
+}
+
+/* Meta */
+.top-project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.top-project-meta span {
+  padding: 5px 7px;
+
+  border: 1px solid rgba(34,211,238,.17);
+  border-radius: 999px;
+
+  color: #8cecf8;
+  background: rgba(34,211,238,.05);
+
+  font: 500 .56rem/1 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+/* Title */
+.top-project-content h3 {
+  margin: 0;
+
+  color: var(--text);
+
+  font-size: 1.15rem;
+  line-height: 1.2;
+  letter-spacing: -.025em;
+}
+
+/* Description */
+.top-project-content > p {
+  margin: 9px 0 13px;
+
+  color: var(--muted);
+
+  font-size: .76rem;
+  line-height: 1.6;
+}
+
+/* Highlights */
+.top-project-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.top-project-highlights span {
+  padding: 5px 7px;
+
+  border-radius: 6px;
+
+  background: rgba(255,255,255,.045);
+
+  color: rgba(234,247,250,.76);
+
+  font-size: .59rem;
+}
+
+/* Technologies */
+.top-project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+
+  margin-top: auto;
+  padding-top: 11px;
+
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.top-project-tech span {
+  color: var(--faint);
+  font: 500 .60rem/1 var(--font-mono);
+}
+
+.top-project-tech span:not(:last-child)::after {
+  content: "·";
+  margin-left: 7px;
+  color: rgba(255,255,255,.22);
+}
+
+/* Buttons */
+.top-project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.top-project-actions .btn {
+  min-height: 34px;
+  padding: 7px 11px;
+  font-size: .64rem;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+  .top-projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .top-project-image {
+    height: 190px;
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 680px) {
+  .top-projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .top-project-image {
+    height: 210px;
+    min-height: 210px;
+  }
+
+  .top-project-content {
+    padding: 20px;
+  }
+
+  .top-project-view {
+    opacity: 1;
+    transform: none;
+  }
+}
+  </style>
+
+
+    <!-- ================= SKILLS ================= -->
+ 
+<section class="skills" id="skills">
+  <div class="section-inner">
+
+    <div class="skills-top reveal-up">
+      <div>
+        <p class="section-kicker">Skills</p>
+
+        <h2 class="section-heading">
+          My technical<br>
+          <span class="text-gradient">toolkit.</span>
+        </h2>
+      </div>
+
+      <p class="skills-description">
+        Technologies I use to design, develop, test, and deploy
+        modern software applications.
+      </p>
+    </div>
+
+
+    <div class="skills-orbit reveal-up">
+
+      <!-- Decorative rings -->
+      <div class="orbit-ring orbit-ring-1"></div>
+      <div class="orbit-ring orbit-ring-2"></div>
+      <div class="orbit-ring orbit-ring-3"></div>
+
+
+      <!-- Center -->
+      <div class="skills-core">
+
+        <div class="core-glow"></div>
+
+        <div class="core-icon">
+          &lt;/&gt;
+        </div>
+
+        <strong>FULL<br>STACK</strong>
+
+        <span>DEVELOPER</span>
+
+      </div>
+
+
+      <!-- Skills -->
+      <div class="orbit-skill orbit-skill-1">
+        <span>React.js</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-2">
+        <span>Next.js</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-3">
+        <span>TypeScript</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-4">
+        <span>NestJS</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-5">
+        <span>Node.js</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-6">
+        <span>PostgreSQL</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-7">
+        <span>MongoDB</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-8">
+        <span>JavaScript</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-9">
+        <span>Python</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-10">
+        <span>C#</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-11">
+        <span>ASP.NET</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-12">
+        <span>REST API</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-13">
+        <span>Supabase</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-14">
+        <span>MySQL</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-15">
+        <span>Java</span>
+      </div>
+
+      <div class="orbit-skill orbit-skill-16">
+        <span>PHP</span>
+      </div>
+
+    </div>
+
+
+    <!-- Bottom technology line -->
+    <div class="skills-footer reveal-up">
+
+      <span class="skills-footer-label">
+        TECH STACK
+      </span>
+
+      <div class="skills-footer-line"></div>
+
+      <span class="skills-footer-count">
+        16 TECHNOLOGIES
+      </span>
+
+    </div>
+
+  </div>
+</section>
+
+  <!-- ================= EDUCATION ================= -->
+  <section class="education" id="education">
+    <div class="section-inner">
+      <p class="section-kicker reveal-up">Education</p>
+      <h2 class="section-heading reveal-up">Academic background.</h2>
+
+      <ul class="edu-list">
+        <li class="edu-item reveal-up">
+          <span class="edu-year">2022 — 2026</span>
+          <div class="edu-body">
+            <h3>B.Sc. in Computer Science &amp; Engineering</h3>
+            <p class="edu-org">American International University-Bangladesh (AIUB)</p>
+            <p class="edu-desc">Expected graduation: October 2026 · CGPA: 3.60/4.00</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ================= METRICS ================= -->
+  <section class="metrics" id="metrics">
+    <div class="section-inner">
+      <p class="section-kicker reveal-up">By the numbers</p>
+      <div class="metrics-grid">
+        <div class="metric reveal-up">
+          <span class="metric-value" data-count="6" data-target="6">6</span>
+          <span class="metric-label">Projects</span>
+        </div>
+        <div class="metric reveal-up">
+          <span class="metric-value" data-count="5" data-target="5">5</span>
+          <span class="metric-label">Core skill areas</span>
+        </div>
+        <div class="metric reveal-up">
+          <span class="metric-value" data-count="1" data-target="1">1</span>
+          <span class="metric-label">Research paper</span>
+        </div>
+        <div class="metric reveal-up">
+          <span class="metric-value" data-count="1" data-target="1">1</span>
+          <span class="metric-label">Professional certification</span>
+        </div>
+      </div>
+      <p class="metrics-note">Based on my current CV and academic portfolio.</p>
+    </div>
+  </section>
+
+  <!-- ================= CODE SHOWCASE ================= -->
+  <section class="code-showcase" id="how-i-think">
+    <div class="section-inner">
+      <p class="section-kicker reveal-up">How I think</p>
+      <h2 class="section-heading reveal-up">The mindset behind the code.</h2>
+
+      <div class="code-window reveal-up">
+        <div class="browser-chrome"><span></span><span></span><span></span><div class="browser-url">developer.ts</div></div>
+        <pre class="code-body" id="codeBody" aria-label="A short code snippet describing the developer's focus and mindset"><code></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PUBLICATIONS ================= -->
+  <section class="education" id="publications">
+    <div class="section-inner">
+      <p class="section-kicker reveal-up">Publication</p>
+      <h2 class="section-heading reveal-up">Research in progress.</h2>
+
+      <div class="about-grid">
+        <div class="about-point reveal-up">
+          <h3>Deep Learning Based Skin Disease Detection Using Ultralytics YOLO26n</h3>
+          <p><strong>2026 · Research Paper — Ongoing</strong></p>
+          <p>A comparative study of deep learning-based object detection models for automated skin disease detection, focusing on detection performance, computational efficiency, and suitability for real-time, resource-constrained deployment.</p>
+          <p>Authors: Hridoy Saha, Md. Tanvir Hasib Fahim, Tafsir Rahman, Sanjida Affrin Bristi</p>
+        </div>
+
+        <div class="about-point reveal-up">
+          <h3>Certification</h3>
+          <p><strong>Complete Web Development Course</strong></p>
+          <p>Programming Hero · 05/06/2025</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="contact" id="contact">
+    <div class="section-inner">
+      <div class="contact-top">
+        <h2 class="contact-heading reveal-up">
+          Have an idea?<br><span class="text-gradient">Let's build it.</span>
+        </h2>
+        <p class="contact-desc reveal-up">
+          Interested in working together, discussing a software project,
+          internship opportunity, or collaboration? Feel free to reach out.
+        </p>
+        <div class="contact-actions reveal-up">
+          <a href="mailto:hredoysaha123@gmail.com" class="btn btn-solid magnetic" data-magnetic>Email me</a>
+          <a href="https://www.linkedin.com/in/hridoy--saha/ target="_blank" rel="noopener" class="btn btn-ghost magnetic" data-magnetic>LinkedIn</a>
+          <a href="https://github.com/hridoy-saha1/ target="_blank" rel="noopener" class="btn btn-ghost magnetic" data-magnetic>GitHub</a>
+        </div>
+      </div>
+
+      <form class="contact-form reveal-up" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+            <span class="field-error" id="nameError"></span>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+            <span class="field-error" id="emailError"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+          <span class="field-error" id="messageError"></span>
+        </div>
+        <button type="submit" class="btn btn-solid magnetic" data-magnetic>
+          <span id="submitLabel">Send message</span>
+        </button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="section-inner footer-inner">
+    <div class="footer-brand">
+      <span class="footer-name">Hridoy Saha</span>
+      <span class="footer-role">Aspiring Software Engineer · Full-Stack Developer</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/hridoy-saha1/ target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/hridoy--saha/ target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:hredoysaha123@gmail.com">Email</a>
+    </div>
+  </div>
+  <div class="section-inner footer-bottom">
+    <p>© 2026 Hridoy Saha. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
