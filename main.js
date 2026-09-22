@@ -448,66 +448,127 @@
   /* ------------------------------------------------------------------
      10. CONTACT FORM — vanilla JS validation
   ------------------------------------------------------------------ */
-  const form = document.getElementById('contactForm');
-  if (form) {
-    const nameField = document.getElementById('name');
-    const emailField = document.getElementById('email');
-    const messageField = document.getElementById('message');
-    const formStatus = document.getElementById('formStatus');
+/* ------------------------------------------------------------------
+   10. CONTACT FORM
+------------------------------------------------------------------ */
+const form = document.getElementById('contactForm');
 
-    const validators = {
-      name: (v) => v.trim().length >= 2,
-      email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
-      message: (v) => v.trim().length >= 10,
-    };
-    const errorMessages = {
-      name: 'Please enter your name.',
-      email: 'Please enter a valid email address.',
-      message: 'Message should be at least 10 characters.',
-    };
+if (form) {
+  const nameField = document.getElementById('name');
+  const emailField = document.getElementById('email');
+  const messageField = document.getElementById('message');
 
-    const validateField = (input) => {
-      const field = input.closest('.field');
-      const errorEl = field.querySelector('.field-error');
-      const valid = validators[input.name](input.value);
-      field.classList.toggle('has-error', !valid);
-      field.classList.toggle('is-valid', valid);
-      errorEl.textContent = valid ? '' : errorMessages[input.name];
-      return valid;
-    };
+  const formStatus = document.getElementById('formStatus');
+  const submitLabel = document.getElementById('submitLabel');
 
-    [nameField, emailField, messageField].forEach((input) => {
-      input.addEventListener('blur', () => validateField(input));
-      input.addEventListener('input', () => {
-        if (input.closest('.field').classList.contains('has-error')) validateField(input);
-      });
+  const validators = {
+    name: (value) => value.trim().length >= 2,
+
+    email: (value) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
+
+    message: (value) =>
+      value.trim().length >= 10
+  };
+
+  const errorMessages = {
+    name: 'Please enter your name.',
+    email: 'Please enter a valid email address.',
+    message: 'Message should be at least 10 characters.'
+  };
+
+  const validateField = (input) => {
+    const field = input.closest('.field');
+    const errorEl = field.querySelector('.field-error');
+
+    const valid = validators[input.name](input.value);
+
+    field.classList.toggle('has-error', !valid);
+    field.classList.toggle('is-valid', valid);
+
+    errorEl.textContent = valid
+      ? ''
+      : errorMessages[input.name];
+
+    return valid;
+  };
+
+  /* Live validation */
+  [nameField, emailField, messageField].forEach((input) => {
+
+    input.addEventListener('blur', () => {
+      validateField(input);
     });
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const validName = validateField(nameField);
-      const validEmail = validateField(emailField);
-      const validMessage = validateField(messageField);
-
-      if (!validName || !validEmail || !validMessage) {
-        formStatus.textContent = 'Please fix the highlighted fields.';
-        formStatus.style.color = '#F87171';
-        return;
+    input.addEventListener('input', () => {
+      if (input.closest('.field').classList.contains('has-error')) {
+        validateField(input);
       }
-
-      const submitLabel = document.getElementById('submitLabel');
-      submitLabel.textContent = 'Sending…';
-      formStatus.textContent = '';
-
-      setTimeout(() => {
-        submitLabel.textContent = 'Send message';
-        formStatus.style.color = '';
-        formStatus.textContent = `Thanks, ${nameField.value.trim().split(' ')[0]} — your message is on its way.`;
-        form.reset();
-        [nameField, emailField, messageField].forEach((input) => {
-          input.closest('.field').classList.remove('is-valid', 'has-error');
-        });
-      }, 900);
     });
-  }
-})();
+  });
+
+
+  /* Submit */
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const validName = validateField(nameField);
+    const validEmail = validateField(emailField);
+    const validMessage = validateField(messageField);
+
+    if (!validName || !validEmail || !validMessage) {
+      formStatus.textContent =
+        'Please fix the highlighted fields.';
+
+      formStatus.style.color = '#F87171';
+
+      return;
+    }
+
+    const name = nameField.value.trim();
+    const email = emailField.value.trim();
+    const message = messageField.value.trim();
+
+    /*
+      Your email address
+    */
+    const receiver = 'hredoysaha123@gmail.com';
+
+    const subject = `Portfolio Contact from ${name}`;
+
+    const body =
+`Hello Hridoy,
+
+You received a new message through your portfolio.
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+--------------------
+Sent from Hridoy's Portfolio
+`;
+
+    const mailtoURL =
+      `mailto:${receiver}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+
+    submitLabel.textContent = 'Opening email…';
+
+    formStatus.style.color = '';
+    formStatus.textContent = 'Opening your email app…';
+
+    /*
+      Open email client
+    */
+    window.location.href = mailtoURL;
+
+    setTimeout(() => {
+      submitLabel.textContent = 'Send message';
+      formStatus.textContent = '';
+    }, 1200);
+  });
+}})();
