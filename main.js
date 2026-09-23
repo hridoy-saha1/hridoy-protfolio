@@ -1,31 +1,35 @@
 (() => {
-  'use strict';
+  "use strict";
 
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
 
-  document.documentElement.classList.remove('no-js');
-  document.documentElement.classList.add('js');
+  document.documentElement.classList.remove("no-js");
+  document.documentElement.classList.add("js");
 
   /* ------------------------------------------------------------------
      0a. PRELOADER — brief "compiling" count-up, then reveals the page.
      Only ever shown when JS runs (CSS gates it behind .js), so a
      visitor never gets trapped behind it.
   ------------------------------------------------------------------ */
-  const preloader = document.getElementById('preloader');
+  const preloader = document.getElementById("preloader");
   if (preloader) {
-    const countEl = document.getElementById('preloaderCount');
-    const timeEl = document.getElementById('preloaderTime');
+    const countEl = document.getElementById("preloaderCount");
+    const timeEl = document.getElementById("preloaderTime");
     const startedAt = performance.now();
 
     const finishPreloader = () => {
       const elapsed = Math.round(performance.now() - startedAt);
       if (timeEl) timeEl.textContent = String(elapsed);
-      preloader.classList.add('is-done');
-      preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
+      preloader.classList.add("is-done");
+      preloader.addEventListener("transitionend", () => preloader.remove(), {
+        once: true,
+      });
     };
 
     if (prefersReducedMotion) {
-      if (countEl) countEl.textContent = '100';
+      if (countEl) countEl.textContent = "100";
       finishPreloader();
     } else {
       let progress = 0;
@@ -33,7 +37,7 @@
         progress += Math.max(1, (100 - progress) / 9);
         if (progress >= 100) {
           progress = 100;
-          if (countEl) countEl.textContent = '100';
+          if (countEl) countEl.textContent = "100";
           setTimeout(finishPreloader, 220);
           return;
         }
@@ -47,7 +51,7 @@
   /* ------------------------------------------------------------------
      0b. SCROLL PROGRESS — thin bar tracking read position
   ------------------------------------------------------------------ */
-  const scrollProgress = document.getElementById('scrollProgress');
+  const scrollProgress = document.getElementById("scrollProgress");
   if (scrollProgress) {
     const updateScrollProgress = () => {
       const doc = document.documentElement;
@@ -55,8 +59,8 @@
       const pct = max > 0 ? window.scrollY / max : 0;
       scrollProgress.style.transform = `scaleX(${pct})`;
     };
-    window.addEventListener('scroll', updateScrollProgress, { passive: true });
-    window.addEventListener('resize', updateScrollProgress);
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress);
     updateScrollProgress();
   }
 
@@ -66,9 +70,9 @@
      nodes are evenly gridded, links only draw between near neighbours.
      Skipped entirely under reduced motion (canvas is display:none there).
   ------------------------------------------------------------------ */
-  const meshCanvas = document.getElementById('meshCanvas');
+  const meshCanvas = document.getElementById("meshCanvas");
   if (meshCanvas && !prefersReducedMotion && window.innerWidth >= 640) {
-    const ctx = meshCanvas.getContext('2d');
+    const ctx = meshCanvas.getContext("2d");
     let width, height, nodes;
     const SPACING = 120;
     const LINK_DIST = 170;
@@ -95,7 +99,7 @@
       height = meshCanvas.height = window.innerHeight;
       buildNodes();
     };
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
     resize();
 
     let t = 0;
@@ -127,7 +131,7 @@
         }
       }
       nodes.forEach((n) => {
-        ctx.fillStyle = 'rgba(167, 156, 135, 0.28)';
+        ctx.fillStyle = "rgba(167, 156, 135, 0.28)";
         ctx.beginPath();
         ctx.arc(n.x, n.y, 1.3, 0, Math.PI * 2);
         ctx.fill();
@@ -141,38 +145,40 @@
   /* ------------------------------------------------------------------
      1. NAVIGATION — scroll state, mobile menu, active-link indicator
   ------------------------------------------------------------------ */
-  const siteNav = document.getElementById('siteNav');
-  const navToggle = document.getElementById('navToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const navIndicator = document.getElementById('navIndicator');
-  const navLinks = Array.from(document.querySelectorAll('[data-nav-link]'));
+  const siteNav = document.getElementById("siteNav");
+  const navToggle = document.getElementById("navToggle");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const navIndicator = document.getElementById("navIndicator");
+  const navLinks = Array.from(document.querySelectorAll("[data-nav-link]"));
   const sections = navLinks
-    .map((link) => document.querySelector(link.getAttribute('href')))
+    .map((link) => document.querySelector(link.getAttribute("href")))
     .filter(Boolean);
 
   const onScrollNav = () => {
-    siteNav.classList.toggle('is-scrolled', window.scrollY > 12);
+    siteNav.classList.toggle("is-scrolled", window.scrollY > 12);
   };
-  window.addEventListener('scroll', onScrollNav, { passive: true });
+  window.addEventListener("scroll", onScrollNav, { passive: true });
   onScrollNav();
 
-  navToggle.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', String(isOpen));
-    mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+  navToggle.addEventListener("click", () => {
+    const isOpen = mobileMenu.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    mobileMenu.setAttribute("aria-hidden", String(!isOpen));
+    document.body.style.overflow = isOpen ? "hidden" : "";
   });
 
-  document.querySelectorAll('.mobile-link').forEach((link) => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('is-open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
+  document.querySelectorAll(".mobile-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      mobileMenu.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
     });
   });
 
-  const desktopNavLinks = navLinks.filter((l) => l.classList.contains('nav-link'));
+  const desktopNavLinks = navLinks.filter((l) =>
+    l.classList.contains("nav-link"),
+  );
 
   const moveIndicatorTo = (link) => {
     if (!link || window.innerWidth <= 860) return;
@@ -180,7 +186,7 @@
     const parentRect = link.parentElement.getBoundingClientRect();
     navIndicator.style.width = `${linkRect.width}px`;
     navIndicator.style.transform = `translateX(${linkRect.left - parentRect.left}px)`;
-    navIndicator.classList.add('is-active');
+    navIndicator.classList.add("is-active");
   };
 
   const setActiveLink = () => {
@@ -190,52 +196,57 @@
       if (sec && sec.offsetTop <= scrollPos) current = sec;
     });
     desktopNavLinks.forEach((link) => {
-      const match = link.getAttribute('href') === `#${current?.id}`;
-      link.classList.toggle('is-active', match);
+      const match = link.getAttribute("href") === `#${current?.id}`;
+      link.classList.toggle("is-active", match);
       if (match) moveIndicatorTo(link);
     });
   };
 
-  window.addEventListener('scroll', setActiveLink, { passive: true });
-  window.addEventListener('resize', setActiveLink);
+  window.addEventListener("scroll", setActiveLink, { passive: true });
+  window.addEventListener("resize", setActiveLink);
   setActiveLink();
 
   /* ------------------------------------------------------------------
      2. SCROLL REVEAL — IntersectionObserver, staggered
   ------------------------------------------------------------------ */
-  const revealTargets = document.querySelectorAll('.reveal-up');
-  if ('IntersectionObserver' in window) {
+  const revealTargets = document.querySelectorAll(".reveal-up");
+  if ("IntersectionObserver" in window) {
     const revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry, i) => {
           if (entry.isIntersecting) {
             const delay = prefersReducedMotion ? 0 : (i % 4) * 90;
-            setTimeout(() => entry.target.classList.add('is-visible'), delay);
+            setTimeout(() => entry.target.classList.add("is-visible"), delay);
             revealObserver.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
     );
     revealTargets.forEach((el) => revealObserver.observe(el));
   } else {
-    revealTargets.forEach((el) => el.classList.add('is-visible'));
+    revealTargets.forEach((el) => el.classList.add("is-visible"));
   }
 
   /* ------------------------------------------------------------------
      3. HERO LOAD SEQUENCE — one orchestrated entrance
   ------------------------------------------------------------------ */
-  window.addEventListener('load', () => {
+  window.addEventListener("load", () => {
     const badge = document.querySelector('[data-reveal="badge"]');
-    const lines = document.querySelectorAll('[data-reveal-line]');
+    const lines = document.querySelectorAll("[data-reveal-line]");
     const desc = document.querySelector('[data-reveal="desc"]');
     const actions = document.querySelector('[data-reveal="actions"]');
     const socials = document.querySelector('[data-reveal="socials"]');
     const card = document.querySelector('[data-reveal="card"]');
 
     if (prefersReducedMotion) {
-      [badge, desc, actions, socials, card].forEach((el) => el && el.classList.add('is-visible'));
-      lines.forEach((l) => { l.style.opacity = '1'; l.style.transform = 'none'; });
+      [badge, desc, actions, socials, card].forEach(
+        (el) => el && el.classList.add("is-visible"),
+      );
+      lines.forEach((l) => {
+        l.style.opacity = "1";
+        l.style.transform = "none";
+      });
       return;
     }
 
@@ -248,30 +259,38 @@
     ];
     steps.forEach(({ el, delay }) => {
       if (!el) return;
-      setTimeout(() => el.classList.add('is-visible'), delay);
+      setTimeout(() => el.classList.add("is-visible"), delay);
     });
 
     lines.forEach((line, i) => {
-      setTimeout(() => {
-        line.style.transition = 'transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s ease';
-        line.style.transform = 'translateY(0)';
-        line.style.opacity = '1';
-      }, 160 + i * 130);
+      setTimeout(
+        () => {
+          line.style.transition =
+            "transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s ease";
+          line.style.transform = "translateY(0)";
+          line.style.opacity = "1";
+        },
+        160 + i * 130,
+      );
     });
   });
 
   /* ------------------------------------------------------------------
      4. CURSOR SPOTLIGHT — desktop only, CSS custom properties
   ------------------------------------------------------------------ */
-  const spotlightTargets = document.querySelectorAll('.skill-card, .project-featured, .project-card');
-  const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const spotlightTargets = document.querySelectorAll(
+    ".skill-card, .project-featured, .project-card",
+  );
+  const isDesktop = window.matchMedia(
+    "(hover: hover) and (pointer: fine)",
+  ).matches;
 
   if (isDesktop && !prefersReducedMotion) {
     spotlightTargets.forEach((target) => {
-      target.addEventListener('mousemove', (e) => {
+      target.addEventListener("mousemove", (e) => {
         const rect = target.getBoundingClientRect();
-        target.style.setProperty('--mx', `${e.clientX - rect.left}px`);
-        target.style.setProperty('--my', `${e.clientY - rect.top}px`);
+        target.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+        target.style.setProperty("--my", `${e.clientY - rect.top}px`);
       });
     });
   }
@@ -280,7 +299,7 @@
      5. 3D PROJECT TILT — vanilla JS, requestAnimationFrame
   ------------------------------------------------------------------ */
   if (isDesktop && !prefersReducedMotion) {
-    const tiltEls = document.querySelectorAll('[data-tilt]');
+    const tiltEls = document.querySelectorAll("[data-tilt]");
     const MAX_TILT = 6;
 
     tiltEls.forEach((el) => {
@@ -294,14 +313,17 @@
         currentRotX += (targetRotX - currentRotX) * 0.12;
         currentRotY += (targetRotY - currentRotY) * 0.12;
         el.style.transform = `perspective(1000px) rotateX(${currentRotX}deg) rotateY(${currentRotY}deg) translateZ(0)`;
-        if (Math.abs(targetRotX - currentRotX) > 0.01 || Math.abs(targetRotY - currentRotY) > 0.01) {
+        if (
+          Math.abs(targetRotX - currentRotX) > 0.01 ||
+          Math.abs(targetRotY - currentRotY) > 0.01
+        ) {
           rafId = requestAnimationFrame(animate);
         } else {
           rafId = null;
         }
       };
 
-      el.addEventListener('mousemove', (e) => {
+      el.addEventListener("mousemove", (e) => {
         const rect = el.getBoundingClientRect();
         const px = (e.clientX - rect.left) / rect.width - 0.5;
         const py = (e.clientY - rect.top) / rect.height - 0.5;
@@ -310,7 +332,7 @@
         if (!rafId) rafId = requestAnimationFrame(animate);
       });
 
-      el.addEventListener('mouseleave', () => {
+      el.addEventListener("mouseleave", () => {
         targetRotX = 0;
         targetRotY = 0;
         if (!rafId) rafId = requestAnimationFrame(animate);
@@ -321,9 +343,13 @@
   /* ------------------------------------------------------------------
      6. MARQUEE — pause on hover (CSS handles the rest)
   ------------------------------------------------------------------ */
-  document.querySelectorAll('[data-marquee]').forEach((marquee) => {
-    marquee.addEventListener('mouseenter', () => marquee.classList.add('is-paused'));
-    marquee.addEventListener('mouseleave', () => marquee.classList.remove('is-paused'));
+  document.querySelectorAll("[data-marquee]").forEach((marquee) => {
+    marquee.addEventListener("mouseenter", () =>
+      marquee.classList.add("is-paused"),
+    );
+    marquee.addEventListener("mouseleave", () =>
+      marquee.classList.remove("is-paused"),
+    );
   });
 
   /* ------------------------------------------------------------------
@@ -331,14 +357,14 @@
      NOTE: real figures are placeholders (0) until provided; the
      counter animates whatever data-target value is set on each stat.
   ------------------------------------------------------------------ */
-  const metricEls = document.querySelectorAll('.metric-value');
-  if ('IntersectionObserver' in window && metricEls.length) {
+  const metricEls = document.querySelectorAll(".metric-value");
+  if ("IntersectionObserver" in window && metricEls.length) {
     const countObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const el = entry.target;
-          const target = Number(el.getAttribute('data-target')) || 0;
+          const target = Number(el.getAttribute("data-target")) || 0;
           if (prefersReducedMotion || target === 0) {
             el.textContent = String(target);
             countObserver.unobserve(el);
@@ -356,7 +382,7 @@
           countObserver.unobserve(el);
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
     metricEls.forEach((el) => countObserver.observe(el));
   }
@@ -364,44 +390,56 @@
   /* ------------------------------------------------------------------
      8. CODE LINE REVEAL — types out the "How I think" snippet
   ------------------------------------------------------------------ */
-  const codeBody = document.getElementById('codeBody');
+  const codeBody = document.getElementById("codeBody");
   if (codeBody) {
-    const codeEl = codeBody.querySelector('code');
+    const codeEl = codeBody.querySelector("code");
     const codeLines = [
       { html: '<span class="tok-kw">const</span> developer = {' },
-      { html: '&nbsp;&nbsp;role: <span class="tok-str">"Full-Stack Developer"</span>,' },
-      { html: '&nbsp;&nbsp;focus: [' },
-      { html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-str">"Scalable APIs"</span>,' },
-      { html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-str">"Clean Architecture"</span>,' },
-      { html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-str">"Database Design"</span>,' },
-      { html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-str">"User Experience"</span>' },
-      { html: '&nbsp;&nbsp;],' },
-      { html: '&nbsp;&nbsp;mindset: <span class="tok-str">"Build. Learn. Improve."</span>' },
-      { html: '};' },
+      {
+        html: '&nbsp;&nbsp;role: <span class="tok-str">"Full-Stack Developer"</span>,',
+      },
+      { html: "&nbsp;&nbsp;focus: [" },
+      {
+        html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-str">"Scalable APIs"</span>,',
+      },
+      {
+        html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-str">"Clean Architecture"</span>,',
+      },
+      {
+        html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-str">"Database Design"</span>,',
+      },
+      {
+        html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-str">"User Experience"</span>',
+      },
+      { html: "&nbsp;&nbsp;]," },
+      {
+        html: '&nbsp;&nbsp;mindset: <span class="tok-str">"Build. Learn. Improve."</span>',
+      },
+      { html: "};" },
     ];
 
     const typeCode = () => {
       if (prefersReducedMotion) {
-        codeEl.innerHTML = codeLines.map((l) => l.html).join('<br>');
+        codeEl.innerHTML = codeLines.map((l) => l.html).join("<br>");
         return;
       }
       let i = 0;
       const renderNext = () => {
         if (i >= codeLines.length) {
-          const cursor = document.createElement('span');
-          cursor.className = 'code-cursor';
+          const cursor = document.createElement("span");
+          cursor.className = "code-cursor";
           codeEl.appendChild(cursor);
           return;
         }
-        const div = document.createElement('div');
+        const div = document.createElement("div");
         div.innerHTML = codeLines[i].html;
-        div.style.opacity = '0';
-        div.style.transform = 'translateY(4px)';
-        div.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        div.style.opacity = "0";
+        div.style.transform = "translateY(4px)";
+        div.style.transition = "opacity 0.35s ease, transform 0.35s ease";
         codeEl.appendChild(div);
         requestAnimationFrame(() => {
-          div.style.opacity = '1';
-          div.style.transform = 'translateY(0)';
+          div.style.opacity = "1";
+          div.style.transform = "translateY(0)";
         });
         i += 1;
         setTimeout(renderNext, 160);
@@ -409,7 +447,7 @@
       renderNext();
     };
 
-    if ('IntersectionObserver' in window) {
+    if ("IntersectionObserver" in window) {
       const codeObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -419,7 +457,7 @@
             }
           });
         },
-        { threshold: 0.4 }
+        { threshold: 0.4 },
       );
       codeObserver.observe(codeBody);
     } else {
@@ -431,16 +469,16 @@
      9. MAGNETIC BUTTONS — subtle pull toward cursor
   ------------------------------------------------------------------ */
   if (isDesktop && !prefersReducedMotion) {
-    document.querySelectorAll('[data-magnetic]').forEach((btn) => {
+    document.querySelectorAll("[data-magnetic]").forEach((btn) => {
       const MAX_PULL = 5;
-      btn.addEventListener('mousemove', (e) => {
+      btn.addEventListener("mousemove", (e) => {
         const rect = btn.getBoundingClientRect();
         const px = (e.clientX - rect.left) / rect.width - 0.5;
         const py = (e.clientY - rect.top) / rect.height - 0.5;
         btn.style.transform = `translate(${px * MAX_PULL * 2}px, ${py * MAX_PULL * 2}px)`;
       });
-      btn.addEventListener('mouseleave', () => {
-        btn.style.transform = 'translate(0, 0)';
+      btn.addEventListener("mouseleave", () => {
+        btn.style.transform = "translate(0, 0)";
       });
     });
   }
@@ -448,96 +486,88 @@
   /* ------------------------------------------------------------------
      10. CONTACT FORM — vanilla JS validation
   ------------------------------------------------------------------ */
-/* ------------------------------------------------------------------
+  /* ------------------------------------------------------------------
    10. CONTACT FORM
 ------------------------------------------------------------------ */
-const form = document.getElementById('contactForm');
+  const form = document.getElementById("contactForm");
 
-if (form) {
-  const nameField = document.getElementById('name');
-  const emailField = document.getElementById('email');
-  const messageField = document.getElementById('message');
+  if (form) {
+    const nameField = document.getElementById("name");
+    const emailField = document.getElementById("email");
+    const messageField = document.getElementById("message");
 
-  const formStatus = document.getElementById('formStatus');
-  const submitLabel = document.getElementById('submitLabel');
+    const formStatus = document.getElementById("formStatus");
+    const submitLabel = document.getElementById("submitLabel");
 
-  const validators = {
-    name: (value) => value.trim().length >= 2,
+    const validators = {
+      name: (value) => value.trim().length >= 2,
 
-    email: (value) =>
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
+      email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
 
-    message: (value) =>
-      value.trim().length >= 10
-  };
+      message: (value) => value.trim().length >= 10,
+    };
 
-  const errorMessages = {
-    name: 'Please enter your name.',
-    email: 'Please enter a valid email address.',
-    message: 'Message should be at least 10 characters.'
-  };
+    const errorMessages = {
+      name: "Please enter your name.",
+      email: "Please enter a valid email address.",
+      message: "Message should be at least 10 characters.",
+    };
 
-  const validateField = (input) => {
-    const field = input.closest('.field');
-    const errorEl = field.querySelector('.field-error');
+    const validateField = (input) => {
+      const field = input.closest(".field");
+      const errorEl = field.querySelector(".field-error");
 
-    const valid = validators[input.name](input.value);
+      const valid = validators[input.name](input.value);
 
-    field.classList.toggle('has-error', !valid);
-    field.classList.toggle('is-valid', valid);
+      field.classList.toggle("has-error", !valid);
+      field.classList.toggle("is-valid", valid);
 
-    errorEl.textContent = valid
-      ? ''
-      : errorMessages[input.name];
+      errorEl.textContent = valid ? "" : errorMessages[input.name];
 
-    return valid;
-  };
+      return valid;
+    };
 
-  /* Live validation */
-  [nameField, emailField, messageField].forEach((input) => {
-
-    input.addEventListener('blur', () => {
-      validateField(input);
-    });
-
-    input.addEventListener('input', () => {
-      if (input.closest('.field').classList.contains('has-error')) {
+    /* Live validation */
+    [nameField, emailField, messageField].forEach((input) => {
+      input.addEventListener("blur", () => {
         validateField(input);
-      }
+      });
+
+      input.addEventListener("input", () => {
+        if (input.closest(".field").classList.contains("has-error")) {
+          validateField(input);
+        }
+      });
     });
-  });
 
+    /* Submit */
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-  /* Submit */
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+      const validName = validateField(nameField);
+      const validEmail = validateField(emailField);
+      const validMessage = validateField(messageField);
 
-    const validName = validateField(nameField);
-    const validEmail = validateField(emailField);
-    const validMessage = validateField(messageField);
+      if (!validName || !validEmail || !validMessage) {
+        formStatus.textContent = "Please fix the highlighted fields.";
 
-    if (!validName || !validEmail || !validMessage) {
-      formStatus.textContent =
-        'Please fix the highlighted fields.';
+        formStatus.style.color = "#F87171";
 
-      formStatus.style.color = '#F87171';
+        return;
+      }
 
-      return;
-    }
+      const name = nameField.value.trim();
+      const email = emailField.value.trim();
+      const message = messageField.value.trim();
 
-    const name = nameField.value.trim();
-    const email = emailField.value.trim();
-    const message = messageField.value.trim();
-
-    /*
+      /*
       Your email address
     */
-    const receiver = 'hredoysaha123@gmail.com';
+      const receiver = "hredoysaha123@gmail.com";
 
-    const subject = `Portfolio Contact from ${name}`;
+      const subject = `Portfolio Contact from ${name}`;
 
-    const body =
-`Hello Hridoy,
+      const body = `Hello Hridoy,
 
 You received a new message through your portfolio.
 
@@ -551,24 +581,54 @@ ${message}
 Sent from Hridoy's Portfolio
 `;
 
-    const mailtoURL =
-      `mailto:${receiver}` +
-      `?subject=${encodeURIComponent(subject)}` +
-      `&body=${encodeURIComponent(body)}`;
+      const mailtoURL =
+        `mailto:${receiver}` +
+        `?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(body)}`;
 
-    submitLabel.textContent = 'Opening email…';
+      submitLabel.textContent = "Opening email…";
 
-    formStatus.style.color = '';
-    formStatus.textContent = 'Opening your email app…';
+      formStatus.style.color = "";
+      formStatus.textContent = "Opening your email app…";
 
-    /*
+      /*
       Open email client
     */
-    window.location.href = mailtoURL;
+      window.location.href = mailtoURL;
 
-    setTimeout(() => {
-      submitLabel.textContent = 'Send message';
-      formStatus.textContent = '';
-    }, 1200);
-  });
-}})();
+      setTimeout(() => {
+        submitLabel.textContent = "Send message";
+        formStatus.textContent = "";
+      }, 1200);
+    });
+  }
+
+  /* ------------------------------------------------------------------
+   PROJECTS — SHOW MORE
+------------------------------------------------------------------ */
+
+  const projectsMoreBtn = document.getElementById("projectsMoreBtn");
+
+  const hiddenProjects = document.querySelectorAll(".project-hidden");
+
+  const projectsMoreLabel = document.getElementById("projectsMoreLabel");
+
+  if (projectsMoreBtn && hiddenProjects.length) {
+    projectsMoreBtn.addEventListener("click", () => {
+      const isExpanded =
+        projectsMoreBtn.getAttribute("aria-expanded") === "true";
+
+      hiddenProjects.forEach((project) => {
+        project.classList.toggle("project-visible", !isExpanded);
+      });
+
+      projectsMoreBtn.setAttribute("aria-expanded", String(!isExpanded));
+
+      projectsMoreBtn.classList.toggle("is-expanded", !isExpanded);
+
+      projectsMoreLabel.textContent = isExpanded
+        ? "Show more projects"
+        : "Show fewer projects";
+    });
+  }
+})();
